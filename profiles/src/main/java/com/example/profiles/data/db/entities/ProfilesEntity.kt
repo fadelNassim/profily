@@ -12,10 +12,14 @@ data class ProfileEntity(
     val name: String,
     @ColumnInfo(name = "email")
     val email: String,
-    @ColumnInfo(name = "dob")
-    val dob: String,
+    @ColumnInfo(name = "birthDate")
+    val birthDate: String,
     @ColumnInfo(name = "phone")
     val phone: String,
     @ColumnInfo(name = "picture")
-    val picture: String
+    val picture: String,
+    @ColumnInfo(name = "country")
+    val country: String,
+    @ColumnInfo(name = "gender")
+    val gender: String
 )

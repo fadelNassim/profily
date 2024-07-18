@@ -28,7 +28,7 @@ object DataBaseModule {
     }
 
     @Provides
-    fun provideProfilessDao(database: ProfilesDataBase): ProfilesDao {
+    fun provideProfilesDao(database: ProfilesDataBase): ProfilesDao {
         return database.profilesDao()
     }
 }

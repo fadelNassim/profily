@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.profiles.domain.usecases.GetProfilesUseCase
 import com.example.profiles.presentation.displaymodels.ProfileUi
-import com.example.profiles.presentation.models.ProfilessUiState
+import com.example.profiles.presentation.models.ProfilesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,29 +20,33 @@ class ProfilesViewModel @Inject constructor(
     private val getProfiles: GetProfilesUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    private val _profilesUiState = MutableStateFlow<ProfilessUiState>(ProfilessUiState.NoState)
-    val profilesUiState: StateFlow<ProfilessUiState> = _profilesUiState
+    private val _profilesUiState = MutableStateFlow<ProfilesUiState>(ProfilesUiState.NoState)
+    val profilesUiState: StateFlow<ProfilesUiState> = _profilesUiState
 
     init {
-        loadProfiless()
+        loadProfiles()
     }
 
-    fun loadProfiless() {
-        _profilesUiState.value = ProfilessUiState.Loading
+    private fun loadProfiles() {
+        _profilesUiState.value = ProfilesUiState.Loading
         viewModelScope.launch(ioDispatcher) {
             val profiles = getProfiles().map { pagingData ->
-                pagingData.map {
+                pagingData.map { profile ->
                     ProfileUi(
-                        name = it.name,
-                        email = it.email,
-                        phone = it.phone,
-                        picture = it.picture,
-                        dob = it.dob,
-                        id = it.id
+                        id = profile.id,
+                        name = profile.name,
+                        email = profile.email,
+                        birthDate = profile.birthDate,
+                        phone = profile.phone,
+                        picture = profile.picture,
+                        country = profile.country,
+                        isMale = profile.gender.isMale(),
                     )
                 }
             }.cachedIn(viewModelScope)
-            _profilesUiState.value = profiles.let { ProfilessUiState.Success(it) }
+            _profilesUiState.value = profiles.let { ProfilesUiState.Success(profiles) }
         }
     }
+
+    private fun String.isMale() = this == "male"
 }

@@ -26,7 +26,7 @@ object PagerModule {
     @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
-    fun provideProfilessPager(dataBase: ProfilesDataBase, remoteMediator: ProfileRemoteMediator) =
+    fun provideProfilesPager(dataBase: ProfilesDataBase, remoteMediator: ProfileRemoteMediator) =
         Pager(
             config = PagingConfig(
                 pageSize = 20,

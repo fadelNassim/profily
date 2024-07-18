@@ -23,3 +23,4 @@ rootProject.name = "profily"
 include(":app")
 include(":profiles")
 
+include(":common")

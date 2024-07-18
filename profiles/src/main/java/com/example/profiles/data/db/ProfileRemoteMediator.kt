@@ -64,13 +64,15 @@ class ProfileRemoteMediator(
                 // Insert new users into database, which invalidates the
                 // current PagingData, allowing Paging to present the updates
                 // in the DB.
-                profilesDb.profilesDao().insertProfile(profilesResponse.profiles.map {
+                profilesDb.profilesDao().insertProfile(profilesResponse.profiles.map { profile ->
                     ProfileEntity(
-                        name = it.name.first + " " + it.name.last,
-                        email = it.email,
-                        dob = it.dob.date,
-                        phone = it.phone,
-                        picture = it.picture.large
+                        name = "${profile.name.first} ${profile.name.last}",
+                        email = profile.email,
+                        birthDate = profile.birthDate.date,
+                        phone = profile.phone,
+                        picture = profile.picture.large,
+                        country = profile.location.country,
+                        gender = profile.gender
                     )
                 })
             }

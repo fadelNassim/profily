@@ -18,18 +18,18 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.profiles.presentation.displaymodels.ProfileUi
-import com.example.profiles.presentation.models.ProfilessUiState.*
+import com.example.profiles.presentation.models.ProfilesUiState.*
 import com.example.profiles.presentation.viewmodels.ProfilesViewModel
-import com.example.profiles.ui.components.ProfilesCard
+import com.example.profiles.ui.components.ProfileCard
 
 @Composable
-fun ProfilessScreen(appPadding: PaddingValues) {
+fun ProfilesScreen(appPadding: PaddingValues) {
     val viewModel: ProfilesViewModel = hiltViewModel()
 
     when (val state = viewModel.profilesUiState.collectAsState().value) {
         is Success -> {
             val profiles = state.profiles.collectAsLazyPagingItems()
-            PagedProfiless(profiles = profiles, appPadding)
+            PagedProfiles(profiles = profiles, appPadding)
         }
         Loading, NoState -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -45,8 +45,10 @@ fun ProfilessScreen(appPadding: PaddingValues) {
 }
 
 @Composable
-fun PagedProfiless(profiles: LazyPagingItems<ProfileUi>, appPadding: PaddingValues) {
-    LazyColumn(modifier = Modifier.padding(appPadding)) {
+fun PagedProfiles(profiles: LazyPagingItems<ProfileUi>, appPadding: PaddingValues) {
+    LazyColumn(
+        modifier = Modifier.padding(appPadding),
+    ) {
         items(
             count = profiles.itemCount,
             key = profiles.itemKey { item -> item.id },
@@ -54,9 +56,8 @@ fun PagedProfiless(profiles: LazyPagingItems<ProfileUi>, appPadding: PaddingValu
         ) { index ->
             profiles[index]?.let {
                     profile ->
-                ProfilesCard(
-                    title = profile.name,
-                    url = profile.picture,
+                ProfileCard(
+                    profile = profile,
                 )
             }
         }

@@ -13,7 +13,7 @@ data class Profile(
     @SerializedName("email")
     val email: String,
     @SerializedName("dob")
-    val dob: Dob,
+    val birthDate: Dob,
     @SerializedName("location")
     val location: Location,
     @SerializedName("phone")
@@ -21,7 +21,9 @@ data class Profile(
     @SerializedName("login")
     val login: Login,
     @SerializedName("picture")
-    val picture: Picture
+    val picture: Picture,
+    @SerializedName("gender")
+    val gender: String
 )
 
 data class Name(

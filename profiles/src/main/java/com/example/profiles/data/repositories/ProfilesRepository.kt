@@ -11,14 +11,16 @@ import javax.inject.Inject
 
 class ProfilesRepository @Inject constructor(private val pager: Pager<Int, ProfileEntity>) {
     fun fetchProfiles(): Flow<PagingData<Profile>> = pager.flow.map { pagingData ->
-        pagingData.map {
+        pagingData.map { profile ->
             Profile(
-                name = it.name,
-                email = it.email,
-                phone = it.phone,
-                picture = it.picture,
-                dob = it.dob,
-                id = it.id
+                id = profile.id,
+                name = profile.name,
+                email = profile.email,
+                birthDate = profile.birthDate,
+                phone = profile.phone,
+                picture = profile.picture,
+                country = profile.country,
+                gender = profile.gender
             )
         }
     }
