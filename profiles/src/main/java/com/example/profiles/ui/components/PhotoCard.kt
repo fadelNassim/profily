@@ -2,8 +2,6 @@ package com.example.profiles.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
@@ -29,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,9 +35,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,18 +47,13 @@ import com.example.profiles.presentation.displaymodels.ProfileUi
 
 @Composable
 fun ProfileCard(
-    profile: ProfileUi
+    profile: ProfileUi,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val arrowRotationDegrees by animateFloatAsState(
-        targetValue = if (isExpanded) 180f else 0f,
-        animationSpec = tween(durationMillis = 300), label = ""
-    )
 
-    val profilePictureScale by animateFloatAsState(
-        targetValue = if (isExpanded) 0.8f else 1f,
-        animationSpec = tween(durationMillis = 300), label = ""
-    )
+    val arrowRotationDegrees by remember {
+        derivedStateOf { if (isExpanded) 180f else 0f }
+    }
 
     Card(
         modifier = Modifier
@@ -83,7 +76,6 @@ fun ProfileCard(
                     modifier = Modifier
                         .height(64.dp)
                         .width(64.dp)
-                        .scale(profilePictureScale)
                         .clip(RoundedCornerShape(50))
                 )
                 Column(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -144,7 +136,7 @@ fun ProfileCard(
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .rotate(arrowRotationDegrees)
+                        .graphicsLayer { rotationZ = arrowRotationDegrees }
                 )
             }
         }
