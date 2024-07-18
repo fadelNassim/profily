@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetProfilesUseCase @Inject constructor(private val repository: ProfilesRepository) {
-    operator fun invoke(): Flow<ProfilesDomainState> {
-        return repository.fetchProfiles().map {
-            when (it) {
-                is ProfilesResponse.Success -> ProfilesDomainState.Success(profiles = it.profiles)
+     operator fun invoke(): Flow<ProfilesDomainState> {
+        return repository.fetchProfiles().map { profilesResponse ->
+            when (profilesResponse) {
+                is ProfilesResponse.Success -> ProfilesDomainState.Success(profiles = profilesResponse.profiles)
                 is ProfilesResponse.ConnectivityError -> ProfilesDomainState.ConnectivityError
             }
         }

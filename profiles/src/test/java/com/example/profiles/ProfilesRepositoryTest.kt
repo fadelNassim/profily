@@ -8,7 +8,6 @@ import com.example.profiles.data.db.dao.ProfilesDao
 import com.example.profiles.data.db.entities.ProfileEntity
 import com.example.profiles.data.models.ProfilesResponse
 import com.example.profiles.data.repositories.ProfilesRepository
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.toList
@@ -43,7 +42,7 @@ class ProfilesRepositoryTest {
     fun `fetchProfiles returns Success when network is available and db has data`() = runTest {
         // Given
         every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns true
-        coEvery { dao.getProfilesCount() } returns 1
+        every { dao.getProfilesCount() } returns 1
 
         // When
         val result = repository.fetchProfiles().toList().first()
@@ -56,7 +55,7 @@ class ProfilesRepositoryTest {
     fun `fetchProfiles returns Success when network is not available and db has data`() = runTest {
         // Given
         every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
-        coEvery { dao.getProfilesCount() } returns 1
+        every { dao.getProfilesCount() } returns 1
 
         // When
         val result = repository.fetchProfiles().toList().first()
@@ -69,7 +68,7 @@ class ProfilesRepositoryTest {
     fun `fetchProfiles returns ConnectivityError when network is not available and db is empty`() = runTest {
         // Given
         every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
-        coEvery { dao.getProfilesCount() } returns 0
+        every { dao.getProfilesCount() } returns 0
 
         // When
         val result = repository.fetchProfiles().toList().first()

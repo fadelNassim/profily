@@ -6,6 +6,7 @@ import androidx.paging.map
 import com.example.profiles.domain.models.ProfilesDomainState
 import com.example.profiles.domain.usecases.GetProfilesUseCase
 import com.example.profiles.presentation.displaymodels.ProfileUi
+import com.example.profiles.presentation.isMale
 import com.example.profiles.presentation.models.ProfilesUiState
 import com.example.profiles.presentation.models.ProfilesUiState.Loading
 import com.example.profiles.presentation.models.ProfilesUiState.NoState
@@ -24,12 +25,12 @@ class ProfilesViewModel @Inject constructor(
     private val getProfiles: GetProfilesUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
+    companion object {
+        private const val MALE = "male"
+    }
+
     private val _profilesUiState = MutableStateFlow<ProfilesUiState>(NoState)
     val profilesUiState: StateFlow<ProfilesUiState> = _profilesUiState
-
-    init {
-        loadProfiles()
-    }
 
     fun loadProfiles() {
         _profilesUiState.value = Loading
@@ -58,6 +59,4 @@ class ProfilesViewModel @Inject constructor(
             }
         }
     }
-
-    private fun String.isMale() = this == "male"
 }

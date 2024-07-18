@@ -13,8 +13,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkingModule {
+    // For exercise purpose only, BASE_URL should be stored in a secure way ex: in local.properties
     companion object {
+        const val SEED_KEY = "seed"
         const val SEED = "lydia"
+        const val BASE_URL = "https://randomuser.me/api/"
     }
 
     @Provides
@@ -28,7 +31,7 @@ class NetworkingModule {
             .addInterceptor { chain ->
                 val originalRequest = chain.request()
                 val url = originalRequest.url.newBuilder()
-                    .addQueryParameter("seed", SEED)
+                    .addQueryParameter(SEED_KEY, SEED)
                     .build()
 
                 chain.proceed(originalRequest.newBuilder().url(url).build())
@@ -37,7 +40,7 @@ class NetworkingModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://randomuser.me/api/")
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

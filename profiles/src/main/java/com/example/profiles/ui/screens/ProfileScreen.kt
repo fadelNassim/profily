@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
@@ -19,6 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.example.profiles.R
 import com.example.profiles.presentation.displaymodels.ProfileUi
 import com.example.profiles.presentation.models.ProfilesUiState
 import com.example.profiles.presentation.models.ProfilesUiState.Loading
@@ -31,10 +34,17 @@ import com.example.profiles.ui.components.ProfileCard
 @Composable
 fun ProfilesScreen(appPadding: PaddingValues) {
     val viewModel: ProfilesViewModel = hiltViewModel()
+    val uiState = viewModel.profilesUiState.collectAsState().value
 
-    when (val state = viewModel.profilesUiState.collectAsState().value) {
+    LaunchedEffect(uiState) {
+        if (uiState is NoState) {
+            viewModel.loadProfiles()
+        }
+    }
+
+    when (uiState) {
         is Success -> {
-            val profiles = state.profiles.collectAsLazyPagingItems()
+            val profiles = uiState.profiles.collectAsLazyPagingItems()
             PagedProfiles(profiles = profiles, appPadding)
         }
 
@@ -51,7 +61,7 @@ fun ProfilesScreen(appPadding: PaddingValues) {
                     .padding(appPadding)
                     .padding(horizontal = 24.dp),
                 onClick = { viewModel.loadProfiles() },
-                message = "Error while loading profiles, check your connection and try again."
+                message = stringResource(id = R.string.network_error)
             )
             }
         }
@@ -105,7 +115,7 @@ fun PagedProfiles(
                             .fillMaxWidth()
                             .padding(horizontal = 24.dp, vertical = 16.dp),
                         onClick = { profiles.retry() },
-                        message = "Error while loading profiles, check your connection and try again."
+                        message = stringResource(id = R.string.network_error)
                     )
                 }
             }
