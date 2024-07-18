@@ -22,6 +22,7 @@ class ProfileRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, ProfileEntity>
     ): MediatorResult {
+        println("loadType: $loadType, state: $state")
         return try {
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> 1

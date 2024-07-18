@@ -12,19 +12,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun GenderBadge(isMale: Boolean) {
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(60))
+            .clip(RoundedCornerShape(50))
             .background(
                 color = if (isMale) Color(0xFF172f41) else Color(0xFFa3395d)
             )
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 2.dp, bottom = 4.dp),
             text = if (isMale) "Male" else "Female",
             style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.Center,
@@ -32,4 +33,16 @@ fun GenderBadge(isMale: Boolean) {
             color = if (isMale) Color(0xFF4692c8) else Color(0xFFF06292)
         )
     }
+}
+
+@Composable
+@Preview
+fun GenderBadgeMalePreview() {
+    GenderBadge(isMale = true)
+}
+
+@Composable
+@Preview
+fun GenderBadgeFemalePreview() {
+    GenderBadge(isMale = false)
 }

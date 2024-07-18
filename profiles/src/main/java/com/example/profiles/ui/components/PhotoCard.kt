@@ -108,9 +108,7 @@ fun ProfileCard(
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                     )
-                    Column(
-
-                    ) {
+                    Column {
                         AnimatedVisibility(
                             visible = isExpanded,
                             enter = expandVertically(),
@@ -129,7 +127,6 @@ fun ProfileCard(
                                     icon = Icons.Default.Phone,
                                     description = profile.phone
                                 )
-
                             }
                         }
                     }
