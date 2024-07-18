@@ -16,4 +16,7 @@ interface ProfilesDao {
 
     @Query("DELETE FROM profiles")
     suspend fun clearAll()
+
+    @Query("SELECT COUNT(id) FROM profiles")
+    fun getProfilesCount(): Int
 }
