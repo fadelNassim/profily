@@ -2,6 +2,7 @@ package com.example.profiles.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.profiles.domain.models.ProfilesDomainState
 import com.example.profiles.domain.usecases.GetProfilesUseCase
@@ -25,12 +26,12 @@ class ProfilesViewModel @Inject constructor(
     private val getProfiles: GetProfilesUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    companion object {
-        private const val MALE = "male"
-    }
-
     private val _profilesUiState = MutableStateFlow<ProfilesUiState>(NoState)
     val profilesUiState: StateFlow<ProfilesUiState> = _profilesUiState
+
+    init {
+        loadProfiles()
+    }
 
     fun loadProfiles() {
         _profilesUiState.value = Loading
@@ -51,7 +52,7 @@ class ProfilesViewModel @Inject constructor(
                                     isMale = profile.gender.isMale()
                                 )
                             }
-                        }
+                        }.cachedIn(viewModelScope)
                     )
 
                     is ProfilesDomainState.ConnectivityError -> ShowConnectivityError

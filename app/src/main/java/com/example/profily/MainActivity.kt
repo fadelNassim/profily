@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.common.ui.theme.AppTheme
 import com.example.profily.navigation.AppNavigation
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
               Scaffold( topBar = {
                   TopAppBar(
                       title = {
-                          Text(text = "Profily", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
+                          Text(text = stringResource(id = R.string.app_name), style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
                       }
                   )
               }) { paddingValues ->

@@ -31,6 +31,7 @@ class ProfilesViewModelTest {
         Dispatchers.setMain(dispatcher)
         getProfilesUseCase = mockk()
         viewModel = ProfilesViewModel(getProfilesUseCase, dispatcher)
+        every { getProfilesUseCase.invoke() } returns flowOf()
     }
 
     @Test

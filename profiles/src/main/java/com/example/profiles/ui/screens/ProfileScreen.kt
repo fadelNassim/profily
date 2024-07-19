@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,15 +33,8 @@ import com.example.profiles.ui.components.ProfileCard
 @Composable
 fun ProfilesScreen(appPadding: PaddingValues) {
     val viewModel: ProfilesViewModel = hiltViewModel()
-    val uiState = viewModel.profilesUiState.collectAsState().value
 
-    LaunchedEffect(uiState) {
-        if (uiState is NoState) {
-            viewModel.loadProfiles()
-        }
-    }
-
-    when (uiState) {
+    when (val uiState = viewModel.profilesUiState.collectAsState().value) {
         is Success -> {
             val profiles = uiState.profiles.collectAsLazyPagingItems()
             PagedProfiles(profiles = profiles, appPadding)
