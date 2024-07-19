@@ -13,6 +13,7 @@ import com.example.profiles.presentation.models.ProfilesUiState.Loading
 import com.example.profiles.presentation.models.ProfilesUiState.NoState
 import com.example.profiles.presentation.models.ProfilesUiState.ShowConnectivityError
 import com.example.profiles.presentation.models.ProfilesUiState.Success
+import com.example.profiles.presentation.toFormattedDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,7 +46,7 @@ class ProfilesViewModel @Inject constructor(
                                     id = profile.id,
                                     name = profile.name,
                                     email = profile.email,
-                                    birthDate = profile.birthDate,
+                                    birthDate = profile.birthDate.toFormattedDate(),
                                     phone = profile.phone,
                                     picture = profile.picture,
                                     country = profile.country,
@@ -60,4 +61,6 @@ class ProfilesViewModel @Inject constructor(
             }
         }
     }
+
+
 }
