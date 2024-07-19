@@ -1,4 +1,4 @@
-package com.example.profiles.presentation.displaymodels
+package com.example.profiles.presentation.models
 
 data class ProfileUi(
     val id: Int,

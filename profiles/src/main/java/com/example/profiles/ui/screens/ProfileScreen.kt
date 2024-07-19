@@ -21,7 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.profiles.R
-import com.example.profiles.presentation.displaymodels.ProfileUi
+import com.example.profiles.presentation.models.ProfileUi
 import com.example.profiles.presentation.models.ProfilesUiState
 import com.example.profiles.presentation.models.ProfilesUiState.Loading
 import com.example.profiles.presentation.models.ProfilesUiState.NoState

@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.profiles.domain.models.ProfilesDomainState
 import com.example.profiles.domain.usecases.GetProfilesUseCase
-import com.example.profiles.presentation.displaymodels.ProfileUi
+import com.example.profiles.presentation.models.ProfileUi
 import com.example.profiles.presentation.isMale
 import com.example.profiles.presentation.models.ProfilesUiState
 import com.example.profiles.presentation.models.ProfilesUiState.Loading
