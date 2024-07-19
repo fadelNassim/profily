@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.profiles.R
 
 @Composable
 fun GenderBadge(isMale: Boolean) {
@@ -26,11 +28,11 @@ fun GenderBadge(isMale: Boolean) {
     ) {
         Text(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 2.dp, bottom = 4.dp),
-            text = if (isMale) "Male" else "Female",
+            text = if (isMale) stringResource(id = R.string.gender_male) else stringResource(id = R.string.gender_female),
             style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
-            color = if (isMale) Color(0xFF4692c8) else Color(0xFFF06292)
+            color = if (isMale)  Color(0xFF4692c8) else Color(0xFFF06292)
         )
     }
 }
