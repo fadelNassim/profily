@@ -6,7 +6,7 @@ In this Android app, the user can scroll through and get details from an infinit
 ## Demo
 | First Use Network ON  | First use Network OFF | Second use Network OFF |
 | ------------- | ------------- | ------------- |
-|<video src="https://github.com/user-attachments/assets/8de4f0fe-04be-4b1e-aaa7-41e53fee3126"/>|<video src="https://github.com/user-attachments/assets/ccb206f3-2ad9-4ad6-91c4-b15366e656e4"/>|<video src="https://github.com/user-attachments/assets/5233f68f-cebd-4969-aefe-5bc327626256"/>|
+|<video height="400" width="200"  src="https://github.com/user-attachments/assets/8de4f0fe-04be-4b1e-aaa7-41e53fee3126"/>|<video height="400" width="200" src="https://github.com/user-attachments/assets/ccb206f3-2ad9-4ad6-91c4-b15366e656e4"/>|<video height="400" width="200" src="https://github.com/user-attachments/assets/5233f68f-cebd-4969-aefe-5bc327626256"/>|
 
 ---
 
